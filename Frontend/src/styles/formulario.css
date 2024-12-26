@@ -58,6 +58,35 @@
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
+  .form-groupll_descripcion {
+    margin-bottom: 15px;
+    margin: 10px;
+    margin-left: 100px;
+    width: 50%;
+  }
+  
+  .form-groupll_descripcion label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 12px;
+  }
+  
+  .form-groupll_descripcion textarea {
+    width: 100%; /* Ajusta al 100% del contenedor padre */
+    height: 200px; /* Altura específica */
+    padding: 8px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    box-sizing: border-box; 
+    outline: none; 
+    resize: none; 
+    overflow-wrap: break-word; 
+    word-wrap: break-word; 
+    text-align: left; 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
   .form-groupll select {
     width: 130%;
     padding: 8px;
@@ -259,7 +288,19 @@
     .form-group {
       margin: 5px;
       width: 200px;
-      margin-left: 40px;
+      margin-left: 12px;
+    }
+    .container_title h1 {
+      font-size: small;
+    }
+  
+  }
+
+  @media only screen and (max-width: 415px){
+    .form-groupll_descripcion {
+      margin: 5px;
+      width: 280px;
+      margin-left: 12px;
     }
     .container_title h1 {
       font-size: small;

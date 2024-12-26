@@ -1,21 +1,4 @@
-const ApiURLGET = 'http://192.168.7.185:8080/api/personas/1090481799';
-
-export const Obtenerdatos = async () => {
-    try {
-        const response = await fetch(ApiURLGET);
-        if (!response.ok) {
-            throw new Error(`Error al obtener datos: ${response.statusText}`);
-        }
-        const datosJson = await response.json();
-        return datosJson;
-    } catch (error) {
-        console.error('No se pudo obtener data de la API:', error);
-        throw error;
-    }
-};
-
-
-const ApiURL = 'http://192.168.1.46:8000/procesar_informacion';
+const ApiURL = '159.223.109.87:8000/procesar_informacion';
 
 export const EnviarDatos = async (data, headers) => {
     try {

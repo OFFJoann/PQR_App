@@ -18,9 +18,9 @@ smtp_password = 'Git_pel66'
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=["creacionesnadar.com:7022"], 
     allow_credentials=True,
-    allow_methods=["*"], 
+    allow_methods=["POST"], 
     allow_headers=["*"], 
 )
 
@@ -51,19 +51,14 @@ def procesar_informacion(input_data: InputData):
         msg['From'] = 'copiadeseguridad@creacionesnadar.com'
         msg['To'] = 'jduque@nadar.com.co'
         msg['Subject'] = Subject
-        msg['CC'] = 'jduque@nadar.com.co'
+        msg['CC'] = 'mmartinez@nadar.com.co'
 
         body = (f"""
 ¡Saludos!,
 
-Se realizó el soporte a través del chatbot.
-                
-Cliente: {input_data.nombre}
-Problema: {input_data.centro_comercial}
+Esta es una reclamación de {input_data.nombre} en el centro comercial {input_data.centro_comercial}.
 
-
-Atentamente,
-Chatbot Telegram
+queja: {input_data.descipcion}
         """)
         msg.attach(MIMEText(body, 'plain'))
 

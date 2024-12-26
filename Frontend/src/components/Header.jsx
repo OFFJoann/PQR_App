@@ -8,7 +8,7 @@ const Header = () => {
         <img src={Nadar} alt="imagen" />
       </div>
       <div className="container_title">
-        <h1>PERFIL SOCIODEMOGRÁFICO</h1>
+        <h1>QUEJAS Y RECLAMACIONES</h1>
       </div>
     </div>
   );

@@ -25,8 +25,8 @@ const Finisherror = ({ onClose }) => {
         <div className="modal-overlay active">
           <div className="modal-content">
             <img src={Check} alt="Alert" width="40px" />
-            <h1>¡ERROR AL ENVIAR DATOS!</h1>
-            <p>Comunica este error al area de gestion humana</p>
+            <h1>¡ERROR AL ENVIAR PQR!</h1>
+            <p>Comunica este error al vendedor.</p>
             <button onClick={handleCloseModal}>Aceptar</button>
           </div>
         </div>

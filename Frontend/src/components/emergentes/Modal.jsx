@@ -28,7 +28,7 @@ const Modal = () => {
         <div className="modal-overlay active">
           <div className="modal-content">
             <img src={Alert} alt="Alert" width="30px" />
-            <p>Autorizo a la Empresa Creaciones Nadar S.A. y a mi empleador el <a href="https://www.speedocolombia.com/tratamiento-de-datos-personales" target="_blank" rel="noreferrer">tratamiento de mis datos personales</a>, incluyendo los de salud, para desarrollar acciones de promoción, prevención y tratamiento para la gestión del riesgo en salud, así como para otras finalidades establecidas en la Ley 1581 de 2012. Como titular de los datos, tengo derecho a revocar la autorización, conocer, actualizar, rectificar y suprimir mi información.</p>
+            <p>La solicitud que va a realizar enviara un correo al area de servicio al cliente de la empresa.</p>
             <button onClick={handleCloseModal}>Aceptar</button>
           </div>
         </div>
