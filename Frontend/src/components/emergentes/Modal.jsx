@@ -28,7 +28,7 @@ const Modal = () => {
         <div className="modal-overlay active">
           <div className="modal-content">
             <img src={Alert} alt="Alert" width="30px" />
-            <p>La solicitud que va a realizar enviara un correo al area de servicio al cliente de la empresa.</p>
+            <p>La solicitud que va a realizar enviará un correo al área de servicio al cliente.</p>
             <button onClick={handleCloseModal}>Aceptar</button>
           </div>
         </div>

@@ -18,9 +18,9 @@ smtp_password = 'Git_pel66'
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["creacionesnadar.com:7022"], 
+    allow_origins=["*"], 
     allow_credentials=True,
-    allow_methods=["POST"], 
+    allow_methods=["*"], 
     allow_headers=["*"], 
 )
 
@@ -34,6 +34,11 @@ class InputData(BaseModel):
     nombre: str
     centro_comercial: str
     descipcion: str
+    cedula: str
+    celular: str
+    correo: str
+    tipo_queja: str
+
 
 @app.get("/obtener_json")
 def obtener_json():
@@ -46,19 +51,30 @@ def procesar_informacion(input_data: InputData):
 
         json_data.append(nueva_informacion)
 
-        Subject = ('PQR PUNTOS DE VENTA')
+        Subject = (f'Queja recibida: {input_data.nombre} en {input_data.centro_comercial}')
         msg = MIMEMultipart()
         msg['From'] = 'copiadeseguridad@creacionesnadar.com'
         msg['To'] = 'jduque@nadar.com.co'
         msg['Subject'] = Subject
-        msg['CC'] = 'mmartinez@nadar.com.co'
 
         body = (f"""
-¡Saludos!,
+Estimado equipo de atención al cliente,
 
-Esta es una reclamación de {input_data.nombre} en el centro comercial {input_data.centro_comercial}.
+Se ha recibido una nueva queja que requiere su gestión. A continuación, se presentan los detalles:
 
-queja: {input_data.descipcion}
+Nombre del cliente: {input_data.nombre}
+Numero de documento: {input_data.cedula}
+Correo: {input_data.correo}
+Celular: {input_data.celular}
+Centro comercial: {input_data.centro_comercial}
+Tipo de queja: {input_data.tipo_queja}
+Descripción de la queja: 
+{input_data.descipcion}
+
+Agradecemos su compromiso y dedicación para resolver este asunto.
+
+
+Saludos cordiales,
         """)
         msg.attach(MIMEText(body, 'plain'))
 
