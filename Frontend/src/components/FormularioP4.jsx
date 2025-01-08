@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Finish from "./emergentes/Finish";
 import { EnviarDatos } from "../services/api";
 import Finisherror from "./emergentes/Finisherror";
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 const Form4 = () => {
   const [dataForm4, setdataForm4] = useState({
@@ -13,14 +15,13 @@ const Form4 = () => {
     descipcion: '',
     tipo_queja: '',
   });
-
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpenerror, setModalOpenerror] = useState(false);
 
   const asignarCentroComercial = (ruta) => {
     switch (ruta) {
       case "/pqr/050":
-        return "O'neill Outlet Las Americas";
+        return "Outlet Las Americas";
       case "/pqr/101":
         return "Speedo Unicentro Medellin";
       case "/pqr/102":
@@ -106,7 +107,7 @@ const Form4 = () => {
       case "/pqr/303":
         return "O'neill Tesoro";
       case "/pqr/305":
-        return "Hibrido Outlet de Moda";
+        return "O'neill Buenavista";
       case "/pqr":
         return "";
       default:
@@ -122,177 +123,182 @@ const Form4 = () => {
     }));
   }, []);
 
+  const handleChangeform4 = (e) => {
+    const { name, value } = e.target || e;  
+    setdataForm4((prevData) => ({
+      ...prevData,
+      [name]: value,
+      celular: name === 'celular' ? value : prevData.celular,  
+    }));
+  };
+
   const handleSelectChange = (e) => {
     const { name, value } = e.target;
     setdataForm4({
       ...dataForm4,
       [name]: value,
     });
-    };
+  };
 
-    const handleChangeform4 = (e) => {
-      const { name, value } = e.target;
-      setdataForm4((prevData) => ({
-        ...prevData,
-        [name]: value
-      }));
-    };
+  const handleSubmitform4 = async (e) => {
+    e.preventDefault();
 
-    const handleSubmitform4 = async (e) => {
-      e.preventDefault();
+    const { customHeader, ...data } = dataForm4;
+    const headers = customHeader ? { 'Custom-Header': customHeader } : {};
 
-      const { customHeader, ...data } = dataForm4;
-      const headers = customHeader ? { 'Custom-Header': customHeader } : {};
+    try {
+      const response = await EnviarDatos(data, headers);
+      setdataForm4({
+        nombre: '',
+        cedula: '',
+        correo: '',
+        celular: '',
+        centro_comercial: '',
+        descipcion: '',
+        tipo_queja: '',
+      });
+      setModalOpen(true);
+      console.log(dataForm4)
+      console.log(response)
+    } catch (error) {
+      console.error('Error:', error.message);
+      setModalOpenerror(true);
+    }
 
-      try {
-        const response = await EnviarDatos(data, headers);
-        setdataForm4({
-          nombre: '',
-          cedula: '',
-          correo: '',
-          celular: '',
-          centro_comercial: '',
-          descipcion: '',
-          tipo_queja: '',
-        });
-        setModalOpen(true);
-        console.log(dataForm4)
-        console.log(response)
-      } catch (error) {
-        console.error('Error:', error.message);
-        setModalOpenerror(true);
-      }
+  };
 
-    };
+  return (
+    <div>
+      <form className="formulario" >
+        <div className='container_title_form'>
+          <label className='Title_form' htmlFor="Form1">Información de PQRS</label>
+        </div>
+        <div className="form-groupll">
+          <label htmlFor="nombre">Nombre completo:</label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            value={dataForm4.nombre}
+            onChange={handleChangeform4}
+            autoComplete="off"
+            required
+            maxLength={30}
+            min={5}
+          />
+        </div>
+        <div className="form-groupll">
+          <label htmlFor="cedula">Número de documento:</label>
+          <input
+            placeholder="CC/CEX/TI"
+            type="tel"
+            id="cedula"
+            name="cedula"
+            value={dataForm4.cedula}
+            onChange={handleChangeform4}
+            required
+            onInput={(e) => {
+              e.target.value = e.target.value.replace(/\D/g, '');
+            }}
+            maxLength="15"
+            pattern="\d{15}"
+            autoComplete="off"
+          />
+        </div>
+        <div className="form-groupll">
+          <label htmlFor="celular">Celular:</label>
+          <PhoneInput
+            country={'co'}
+            id="celular"
+            name="celular"
+            enableSearch={true}
+            value={dataForm4.celular}
+            onChange={(value) => handleChangeform4({ target: { name: 'celular', value } })}
+            required
+            autoComplete="off"
+          />
 
-    return (
-      <div>
-        <form className="formulario" onSubmit={handleSubmitform4}>
-          <div className='container_title_form'>
-            <label className='Title_form' htmlFor="Form1">INFORMACIÓN DE PQR</label>
-          </div>
-          <div className="form-groupll">
-            <label htmlFor="nombre">Nombre completo:</label>
+        </div>
+        <div className="form-groupll">
+          <label htmlFor="correo">Correo electrónico:</label>
+          <input
+            type="mail"
+            id="correo"
+            name="correo"
+            value={dataForm4.correo}
+            onChange={handleChangeform4}
+            autoComplete="off"
+            required
+            maxLength={50}
+            min={5}
+          />
+        </div>
+        <div className="form-groupll">
+          <label htmlFor="centro_comercial">Punto de venta:</label>
+          <input
+            type="text"
+            id="centro_comercial"
+            name="centro_comercial"
+            value={dataForm4.centro_comercial}
+            onChange={handleChangeform4}
+            autoComplete="off"
+            required
+            maxLength={40}
+            minLength={5}
+          />
+        </div>
+        <div className="form-groupll">
+          <label htmlFor="tipo_queja">Tipo de solicitud:</label>
+          <select
+            id="tipo_queja"
+            name="tipo_queja"
+            value={dataForm4.tipo_queja}
+            onChange={handleSelectChange}
+            required
+            autoComplete="off"
+          >
+            <option value="" disabled hidden>Seleccione</option>
+            <option value="Petición">Petición</option>
+            <option value="Queja">Queja</option>
+            <option value="Reclamación">Reclamación</option>
+            <option value="Sugerencia">Sugerencia</option>
+            <option value="Denuncia">Denuncia</option>
+            <option value="Felicitaciones">Felicitación</option>
+
+          </select>
+        </div>
+      </form>
+      <form className="formulario" onSubmit={handleSubmitform4}>
+        <div className="form-groupll_descripcion">
+          <label htmlFor="descipcion">Descripción de la solicitud:</label>
+          <textarea
+            id="descipcion"
+            name="descipcion"
+            rows="5"
+            value={dataForm4.descipcion}
+            onChange={handleChangeform4}
+            autoComplete="off"
+            required
+          ></textarea>
+        </div>
+        <div className='button-container'>
+          <label>
             <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              value={dataForm4.nombre}
-              onChange={handleChangeform4}
-              autoComplete="off"
+              type="checkbox"
+              name="tratamientoDatos"
               required
-              maxLength={30}
-              min={5}
             />
-          </div>
-          <div className="form-groupll">
-            <label htmlFor="cedula">Numero de documento:</label>
-            <input
-              placeholder="CC/CEX/TI"
-              type="tel"
-              id="cedula"
-              name="cedula"
-              value={dataForm4.cedula}
-              onChange={handleChangeform4}
-              required
-              onInput={(e) => {
-                e.target.value = e.target.value.replace(/\D/g, '');
-              }}
-              maxLength="10"
-              pattern="\d{10}"
-              autoComplete="off"
-            />
-          </div>
-          <div className="form-groupll">
-            <label htmlFor="celular">Celular:</label>
-            <input
-              placeholder="(+57)"
-              type="tel"
-              id="celular"
-              name="celular"
-              value={dataForm4.celular}
-              onChange={handleChangeform4}
-              required
-              onInput={(e) => {
-                e.target.value = e.target.value.replace(/\D/g, '');
-              }}
-              maxLength="10"
-              pattern="\d{10}"
-              autoComplete="off"
-            />
-          </div>
-          <div className="form-groupll">
-            <label htmlFor="correo">Correo electronico:</label>
-            <input
-              type="mail"
-              id="correo"
-              name="correo"
-              value={dataForm4.correo}
-              onChange={handleChangeform4}
-              autoComplete="off"
-              required
-              maxLength={30}
-              min={5}
-            />
-          </div>
-          <div className="form-groupll">
-            <label htmlFor="centro_comercial">Punto de venta:</label>
-            <input
-              type="text"
-              id="centro_comercial"
-              name="centro_comercial"
-              value={dataForm4.centro_comercial}
-              onChange={handleChangeform4}
-              autoComplete="off"
-              required
-              maxLength={30}
-              minLength={5}
-            />
-          </div>
-          <div className="form-groupll">
-            <label htmlFor="tipo_queja">Tipo de solicitud:</label>
-            <select
-              id="tipo_queja"
-              name="tipo_queja"
-              value={dataForm4.tipo_queja}
-              onChange={handleSelectChange}
-              required
-              autoComplete="off"
-            >
-              <option value="" disabled hidden>Seleccione</option>
-              <option value="Petición">Petición</option>
-              <option value="Queja">Queja</option>
-              <option value="Reaclamación">Reaclamación</option>
-              <option value="Sugerencia">Sugerencia</option>
-              <option value="Felicitaciones">Felicitaciones</option>
-            </select>
-          </div>
+            Acepto el <a href="https://www.speedocolombia.com/tratamiento-de-datos-personales" target="_blank" rel="noopener noreferrer">tratamiento de datos personales</a> y la <a href="https://www.speedocolombia.com/terminos-y-condiciones" target="_blank" rel="noopener noreferrer">política de términos y condiciones</a>.
+          </label>
+          <button type='submit' className='sig_btn'>Enviar</button>
 
+        </div>
+      </form>
+      {modalOpen && <Finish onClose={() => setModalOpen(false)} />}
+      {modalOpenerror && <Finisherror onClose={() => setModalOpenerror(false)} />}
 
-        </form>
-        <form className="formulario" onSubmit={handleSubmitform4}>
-          <div className="form-groupll_descripcion">
-            <label htmlFor="descipcion">Descripción de solicitud:</label>
-            <textarea
-              id="descipcion"
-              name="descipcion"
-              rows="5"
-              value={dataForm4.descipcion}
-              onChange={handleChangeform4}
-              autoComplete="off"
-              required
-            ></textarea>
-          </div>
-          <div className='button-container'>
-            <button type='submit' className='sig_btn'>Enviar</button>
+    </div>
+  )
+}
 
-          </div>
-        </form>
-        {modalOpen && <Finish onClose={() => setModalOpen(false)} />}
-        {modalOpenerror && <Finisherror onClose={() => setModalOpenerror(false)} />}
-
-      </div>
-    )
-  }
-
-  export default Form4;
+export default Form4;

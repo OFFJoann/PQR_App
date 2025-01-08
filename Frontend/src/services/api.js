@@ -1,4 +1,4 @@
-const ApiURL = 'https://creacionesnadar.com:8000/procesar_informacion';
+const ApiURL = 'https://API.com'; //With SSL certificate
 
 export const EnviarDatos = async (data, headers) => {
     try {

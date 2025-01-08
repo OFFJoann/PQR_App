@@ -5,6 +5,11 @@
 /.pnp
 .pnp.js
 
+
+# Certificates
+/ca-bundle.txt
+/private-key.txt
+
 # testing
 /coverage
 

@@ -25,8 +25,8 @@ const Finish = ({ onClose }) => {
         <div className="modal-overlay active">
           <div className="modal-content">
             <img src={Check} alt="Alert" width="40px" />
-            <h1>!PQR ENVIADA CON EXITO!</h1>
-            <p>Muchas gracias por tu notificación, la investigaremos a fondo.</p>
+            <h1>¡PQRS enviada con éxito!</h1>
+            <p>Muchas gracias por tu solicitud. La investigaremos a fondo y, en un plazo máximo de 15 días, te estaremos dando una respuesta.</p>
             <button onClick={handleCloseModal}>Aceptar</button>
           </div>
         </div>

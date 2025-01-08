@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Formulario from './FormularioP4';
+import Formulariooneill from './FormularioP4O';
 
 const Routes = () => {
   return (
@@ -47,9 +48,10 @@ const Routes = () => {
       <Route exact path="/pqr/151" component={Formulario} />
       <Route exact path="/pqr/152" component={Formulario} />
       <Route exact path="/pqr/050" component={Formulario} />
-      <Route exact path="/pqr/301" component={Formulario} />
-      <Route exact path="/pqr/303" component={Formulario} />
-      <Route exact path="/pqr/305" component={Formulario} />
+      <Route exact path="/pqr/301" component={Formulariooneill} />
+      <Route exact path="/pqr/303" component={Formulariooneill} />
+      <Route exact path="/pqr/305" component={Formulariooneill} />
+      <Route exact path="/pqr/500" component={Formulariooneill} />
     </Switch>
   );
 };
