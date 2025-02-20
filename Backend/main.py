@@ -12,8 +12,8 @@ app = FastAPI()
 
 smtp_server = 'smtp.zoho.com'
 smtp_port = 587
-smtp_username = 'copiadeseguridad@creacionesnadar.com'
-smtp_password = 'Git_pel66'
+smtp_username = 'correo@domain.com'
+smtp_password = 'Password'
 
 
 app.add_middleware(
